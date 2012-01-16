@@ -1,0 +1,22 @@
+
+### {{{ Package selection
+#tasksel tasksel/first multiselect standard, web-server
+# If the desktop task is selected, install the kde and xfce desktops
+# instead of the default gnome desktop.
+tasksel tasksel/first multiselect standard, ssh-server
+
+# Individual additional packages to install
+d-i pkgsel/include string openssh-server
+# Whether to upgrade packages after debootstrap.
+# Allowed values: none, safe-upgrade, full-upgrade
+#d-i pkgsel/upgrade select none
+
+# Some versions of the installer can report back on what software you have
+# installed, and what software you use. The default is not to report back,
+# but sending reports helps the project determine what software is most
+# popular and include it on CDs.
+popularity-contest popularity-contest/participate boolean false
+
+# }}}
+
+

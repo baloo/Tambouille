@@ -1,0 +1,7 @@
+#!ipxe
+
+kernel <%= @profile[:kernel_options].join(" ") %>
+initrd <%= @profile[:initrd_options].join(" ") %>
+
+boot
+

@@ -1,0 +1,13 @@
+# vim: foldmethod=marker:
+
+### {{{ Zenexity extensions
+# Install Logger
+d-i logger-install/remote string 10.191.1.252
+
+# Installation complete callback
+d-i install-complete/callback_url string <%= @base_url + url(:callback, :trigger, @node[:macaddress], "complete") %>
+
+# Network config callback
+d-i network-zenexity/callback_url string <%= @base_url + url(:callback, :config, @node[:macaddress], "network") %>
+# }}}
+

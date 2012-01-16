@@ -1,0 +1,17 @@
+
+### {{{ Mirror settings
+# {{{ Mirror access
+# If you select ftp, the mirror/country string does not need to be set.
+d-i mirror/country string manual
+d-i mirror/http/hostname string cdn.debian.net
+d-i mirror/http/directory string /debian
+d-i mirror/http/proxy string http://10.191.1.252:3142/
+# @TODO template
+# }}}
+
+# {{{ Suite to install.
+d-i mirror/suite string stable
+# }}}
+# }}}
+
+

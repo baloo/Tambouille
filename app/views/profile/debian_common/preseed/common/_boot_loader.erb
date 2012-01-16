@@ -1,0 +1,34 @@
+
+### {{{ Boot loader installation
+# Grub is the default boot loader (for x86). If you want lilo installed
+# instead, uncomment this:
+#d-i grub-installer/skip boolean true
+# To also skip installing lilo, and install no bootloader, uncomment this
+# too:
+d-i lilo-installer/skip boolean true
+
+# This is fairly safe to set, it makes grub install automatically to the MBR
+# if no other operating system is detected on the machine.
+d-i grub-installer/only_debian boolean true
+
+# This one makes grub-installer install to the MBR if it also finds some other
+# OS, which is less safe as it might not be able to boot that other OS.
+d-i grub-installer/with_other_os boolean false
+
+# Alternatively, if you want to install to a location other than the mbr,
+# uncomment and edit these lines:
+#d-i grub-installer/only_debian boolee
+#d-i grub-installer/with_other_os boolean false
+#d-i grub-installer/bootdev  string (hd0,0)
+# To install grub to multiple disks:
+#d-i grub-installer/bootdev  string (hd0,0) (hd1,0) (hd2,0)
+
+# Optional password for grub, either in clear text
+#d-i grub-installer/password password r00tme
+#d-i grub-installer/password-again password r00tme
+# or encrypted using an MD5 hash, see grub-md5-crypt(8).
+#d-i grub-installer/password-crypted password [MD5 hash]
+
+# }}}
+
+

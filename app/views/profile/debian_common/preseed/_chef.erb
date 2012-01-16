@@ -1,0 +1,24 @@
+# vim: foldmethod=marker:
+
+
+### {{{ Chef Setup
+# {{{ Chef repo
+d-i apt-setup/local0/repository string \
+       http://apt.opscode.com/ squeeze-0.10 main
+d-i apt-setup/local0/comment string Chef repository
+
+# Enable deb-src lines
+#d-i apt-setup/local0/source boolean true
+# URL to the public key of the local repository; you must provide a key or
+# apt will complain about the unauthenticated repository and so the
+# sources.list line will be left commented out
+d-i apt-setup/local0/key string http://10.191.1.252/static/chef/chef-repo/packages@opscode.com.gpg.key
+# }}}
+
+# Chef preseed
+chef chef/chef_server_url string http://chef.zenexity.com:4000/
+# }}}
+
+
+
+
