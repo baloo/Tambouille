@@ -59,4 +59,64 @@ class Tambouille < Padrino::Application
   #     render 'errors/505'
   #   end
   #
+
+  @@config = {}
+
+  def self.config(arg = nil)
+    if arg
+      @@config = TambouilleConfig.load(arg)
+    end
+    @@config
+  end
+
 end
+
+# Monkey patching is ugly, you should never ever do that
+# but it's so much powerfull
+class Hash
+  def recursive_merge(h)
+    self.merge!(h) {|key, _old, _new| if _old.class == Hash then _old.recursive_merge(_new) else _new end  }
+  end
+end
+
+class TambouilleConfig < Hash
+  def self.load(environment)
+    # load global config file
+    root_config = YAML.load_file(Padrino.root + '/config/tambouille.yml')
+
+    # override config file with local file
+    if File.exists?(Padrino.root + '/config/tambouille.yml.local')
+      local_root_config = YAML.load_file(Padrino.root + '/config/tambouille.yml.local')
+      root_config.recursive_merge(local_root_config)
+    end
+
+    # Merge environment config with global_config
+    env_config = root_config[environment] || {}
+    config = root_config["all"] || {}
+    config.recursive_merge(env_config)
+
+    # Get an TambouilleConfig back
+    tc = TambouilleConfig.new()
+    tc.merge!(config)
+    tc
+  end
+
+  def setup()
+    Padrino.logger.info("[chef] Setup chef client library")
+
+    if self["chef"]["config_file"]
+      Padrino.logger.debug("[chef] Load config file")
+      Chef::Config.from_file(self["chef"]["config_file"])
+    end
+
+    # If any overrides then load them
+    if self["chef"]["overrides"]
+      Padrino.logger.debug("[chef] Load overrides")
+      self["chef"]["overrides"].each{ |key, value|
+        Chef::Config[key.to_sym] = value
+      }
+    end
+  end
+end
+
+

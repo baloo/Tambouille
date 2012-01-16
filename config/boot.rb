@@ -8,6 +8,9 @@ require 'bundler/setup'
 
 require 'chef/node'
 require 'chef/search/query'
+
+require 'yaml'
+
 Bundler.require(:default, PADRINO_ENV)
 
 ##

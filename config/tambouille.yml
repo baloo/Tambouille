@@ -1,0 +1,17 @@
+production:
+  chef:
+    config_file: /etc/chef/client.rb
+    overrides:
+      # Following config will override config_file config
+      #server_url: http://chef.server:4000/
+      #client_name: foo
+      #key_file: /etc/chef/client.pem
+
+  tambouille:
+    base_url: http://bootserver/
+
+all:
+  chef:
+    config_file: /etc/chef/client.rb
+    key_file: /etc/chef/client.pem
+

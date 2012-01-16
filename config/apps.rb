@@ -33,5 +33,10 @@ end
 # Mounts the core application for this project
 Padrino.mount("Tambouille").to('/')
 
-Chef::Config.from_file("/Users/superbaloo/.chef/knife.rb")
+# Configure application
+Padrino.logger.info("Setup tambouille")
+Tambouille.config(Padrino.env.to_s)
+
+# Setup application
+Tambouille.config.setup()
 
