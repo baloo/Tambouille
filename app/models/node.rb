@@ -29,7 +29,7 @@ class Node
   end
 
   def self.macaddress_parse(macaddress_source, separator=':')
-    macaddress = macaddress_source.gsub /[^a-e0-9]/, ''
+    macaddress = macaddress_source.gsub /[^a-f0-9]/, ''
     if macaddress.length != 12
       raise IncorrectMacAddress, "Macaddress incorrect"
     end
